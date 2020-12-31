@@ -106,7 +106,18 @@ namespace LINQ
                               orderby p.name
                               group p by p.name[0];
 
-            foreach (var item in alphaPeople)
+            /*foreach (var item in alphaPeople)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (var p in item)
+                {
+                    Console.WriteLine("\t" + p.name);
+                }
+            }*/
+
+            var alphaPeopleLam = people.Where(p=> p.name.Contains("u")).OrderBy(p => p.name).GroupBy(p => p.name[0]);
+
+            foreach (var item in alphaPeopleLam)
             {
                 Console.WriteLine($"{item.Key}");
                 foreach (var p in item)
