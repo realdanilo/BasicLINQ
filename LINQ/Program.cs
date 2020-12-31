@@ -46,6 +46,8 @@ namespace LINQ
 
             };
 
+            //people.ForEach(p => Console.WriteLine(p.gender));
+
             var threeCharPeople = from p in people
                                  where p.name.Length <= 5
                                  orderby p.name , p.height descending
@@ -56,15 +58,62 @@ namespace LINQ
                             orderby p.weight
                             select p.name;
 
-            foreach (var i in threeCharPeople)
+            /*foreach (var i in threeCharPeople)
             {
                 Console.WriteLine($"{i.name}  {i.height}");
-            }
+            }*/
 
             /*foreach (var item in onlyNames)
             {
                 Console.WriteLine(item);
             }*/
+
+
+            //Lambda
+            var oddNums = from n in numbers
+                          where n % 2 == 1
+                          select n;
+
+            var oddNumsLam = numbers.Where(n => n % 2==1);
+
+            //
+            var peopleLam = people.Where(p => p.name.Contains("e")).Select(p => p.height);
+            //Console.WriteLine(string.Join(" ",peopleLam));
+
+
+            var stringNums = "1,33,99,0,12,11,0,-9,4,11";
+
+            List<int> numsInt = stringNums.Split(",")
+                          .Select(e => int.Parse(e))
+                          .ToList();
+
+
+            // numsInt.ForEach(i => Console.WriteLine(i));
+
+            var genderGroup = from p in people
+                              group p by p.gender;
+
+            /*foreach (var item in genderGroup)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (var p in item)
+                {
+                    Console.WriteLine("\t"+p.name);
+                }
+            }*/
+
+            var alphaPeople = from p in people
+                              orderby p.name
+                              group p by p.name[0];
+
+            foreach (var item in alphaPeople)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (var p in item)
+                {
+                    Console.WriteLine("\t" + p.name);
+                }
+            }
         }
     }
 }
